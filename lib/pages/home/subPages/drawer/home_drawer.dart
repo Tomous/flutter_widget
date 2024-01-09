@@ -31,7 +31,18 @@ final List<Widget> menuPageList = [
   const SignaturePage(),
   const DropDownMenuPage(),
   const SecondaryListPage(),
-  const CityChoosePage(),
+  const CityChoosePage(
+    appBarTitle: '城市单选',
+    hotCityTitle: '这里是推荐城市',
+    hotCityList: [
+      "北京市",
+      "广州市",
+      "成都市",
+      "深圳市",
+      "杭州市",
+      "武汉市",
+    ],
+  ),
 ];
 
 class HomeDrawer extends StatelessWidget {

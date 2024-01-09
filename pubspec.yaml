@@ -55,6 +55,7 @@ dependencies:
   date_format: ^2.0.7 #时间格式化
   tab_indicator_styler: ^2.0.0 #tab指示器样式
   mirai_dropdown_menu: ^0.0.6+4 #下拉选择框
+  lpinyin: 2.0.3 #汉字转拼音
 
 dev_dependencies:
   flutter_test:
