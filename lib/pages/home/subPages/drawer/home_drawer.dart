@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget/pages/home/subPages/drawer/subPages/check_box_page.dart';
 import 'package:flutter_widget/pages/home/subPages/drawer/subPages/city_choose/city_choose.dart';
+import 'package:flutter_widget/pages/home/subPages/drawer/subPages/custom_tabbar/custom_tabbar.dart';
 import 'package:flutter_widget/pages/home/subPages/drawer/subPages/drop_down_menu/drop_down_menu.dart';
+import 'package:flutter_widget/pages/home/subPages/drawer/subPages/guide/guide.dart';
 import 'package:flutter_widget/pages/home/subPages/drawer/subPages/publish_tweet_page.dart';
+import 'package:flutter_widget/pages/home/subPages/drawer/subPages/rating_star/rating_star.dart';
 import 'package:flutter_widget/pages/home/subPages/drawer/subPages/secondary_list/view/secondary_list.dart';
 import 'package:flutter_widget/pages/home/subPages/drawer/subPages/signature_page.dart';
 import 'package:get/route_manager.dart';
@@ -15,6 +18,9 @@ const IconList = [
   Icons.menu,
   Icons.settings,
   Icons.menu,
+  Icons.home,
+  Icons.star,
+  Icons.abc,
 ];
 // ignore: constant_identifier_names
 const TitleList = [
@@ -24,6 +30,9 @@ const TitleList = [
   '自定义下拉选择框',
   '二级列表',
   '城市单选',
+  '自定义tabBar',
+  '星级评分',
+  '引导语',
 ];
 final List<Widget> menuPageList = [
   const PublishTweetPage(),
@@ -43,6 +52,9 @@ final List<Widget> menuPageList = [
       "武汉市",
     ],
   ),
+  const CustomTabBarPage(),
+  const RatingStar(),
+  const StartGuidePage(),
 ];
 
 class HomeDrawer extends StatelessWidget {

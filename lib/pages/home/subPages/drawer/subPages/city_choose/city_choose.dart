@@ -9,6 +9,10 @@ const double cellHeaderHeight = 40.0;
 const double cellHeight = 50.0;
 // cell的高度
 const double indexBarWidth = 130.0;
+//高亮状态
+const TextStyle highlightStyle = TextStyle(color: Colors.blue, fontSize: 16.0);
+//正常状态
+const TextStyle normalStyle = TextStyle(color: Colors.black, fontSize: 16.0);
 
 const INDEX_WORDS = [
   '🔍',
@@ -300,6 +304,7 @@ class _CityChoosePageState extends State<CityChoosePage> {
     return ItemCell(
       name: model.name!,
       groupTitle: hiddenTitle ? null : model.indexLetter,
+      searchStr: searchStr,
     );
   }
 }
@@ -308,10 +313,12 @@ class _CityChoosePageState extends State<CityChoosePage> {
 class ItemCell extends StatelessWidget {
   final String name;
   final String? groupTitle;
+  final String? searchStr;
   const ItemCell({
     super.key,
     required this.name,
     this.groupTitle,
+    this.searchStr,
   });
 
   @override
@@ -336,29 +343,35 @@ class ItemCell extends StatelessWidget {
         SizedBox(
           height: cellHeight,
           child: ListTile(
-            title: _title(name),
+            title: _title(
+              name,
+              searchStr!,
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _title(String name) {
-    // List<TextSpan> spans = [];
-    // List<String> strs = name.split(searchStr);
-    // for (int i = 0; i < strs.length; i++) {
-    //   String str = strs[i];
-    //   if (str == ''&&i<strs.length-1) {
-    //     spans.add(TextSpan(text: searchStr, style: highlightStyle));
-    //   } else {
-    //     spans.add(TextSpan(text: str, style: normalStyle));
-    //     if (i < strs.length - 1) {
-    //       spans.add(TextSpan(text: searchStr, style: highlightStyle));
-    //     }
-    //   }
-    // }
-    // return RichText(text: TextSpan(children: spans));
-    return Text(name);
+  Widget _title(String name, String searchStr) {
+    ///根据搜索关键字显示高亮状态文字
+    List<TextSpan> spans = [];
+    List<String> strs = name.split(searchStr);
+    for (int i = 0; i < strs.length; i++) {
+      String str = strs[i];
+      if (str == '' && i < strs.length - 1) {
+        spans.add(TextSpan(text: searchStr, style: highlightStyle));
+      } else {
+        spans.add(TextSpan(text: str, style: normalStyle));
+        if (i < strs.length - 1) {
+          spans.add(TextSpan(text: searchStr, style: highlightStyle));
+        }
+      }
+    }
+    return RichText(text: TextSpan(children: spans));
+
+    ///直接返回文字
+    // return Text(name);
   }
 }
 
@@ -464,17 +477,20 @@ class _IndexBarWidgetState extends State<IndexBarWidget> {
     super.initState();
   }
 
-// 获取选中的字符
+  /// 获取选中的字符
   int getIndex(BuildContext context, Offset globalPosition) {
-    // 拿到点前小部件(Container)的盒子
+    /// 拿到点前小部件(Container)的盒子
     RenderBox renderBox = context.findRenderObject() as RenderBox;
-    // 拿到y值
+
+    /// 拿到y值
     double y = renderBox.globalToLocal(globalPosition).dy;
-    // 算出字符高度
+
+    /// 算出字符高度
     double itemHeight = renderBox.size.height / INDEX_WORDS.length;
-    // 算出第几个item
-    // int index = y ~/ itemHeight;
-    // 为了防止滑出区域后出现问题，所以index应该有个取值范围
+
+    /// 算出第几个item
+    /// int index = y ~/ itemHeight;
+    /// 为了防止滑出区域后出现问题，所以index应该有个取值范围
     int index = (y ~/ itemHeight).clamp(0, INDEX_WORDS.length - 1);
     return index;
   }

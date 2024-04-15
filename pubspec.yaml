@@ -56,6 +56,7 @@ dependencies:
   tab_indicator_styler: ^2.0.0 #tab指示器样式
   mirai_dropdown_menu: ^0.0.6+4 #下拉选择框
   lpinyin: 2.0.3 #汉字转拼音
+  flutter_rating_stars: ^1.0.3+4 #星级评分
 
 dev_dependencies:
   flutter_test:
